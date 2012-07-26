@@ -2,4 +2,7 @@
 *.iws
 *.iml
 .idea
-
+.classpath
+.settings
+.project
+/bin

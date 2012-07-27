@@ -3,4 +3,7 @@
 *.iml
 .idea
 out
-
+.classpath
+.settings
+.project
+/bin

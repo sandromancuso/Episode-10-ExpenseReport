@@ -14,7 +14,7 @@ public class ExpenseReportNamer implements ExpenseNamer {
 	  ReportNameByExpenseClass.put(CarRentalExpense.class, "Car Rental");
   }
 	
-  public String getName(Expense expense) {
+  public String nameFor(Expense expense) {
 	  return ReportNameByExpenseClass.get(expense.getClass());
   }
 }

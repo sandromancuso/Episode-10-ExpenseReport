@@ -1,7 +1,9 @@
 package expenseReport;
 
+import static java.lang.String.format;
+
 public class ExpenseReporter {
-  ReportPrinter printer;
+  private ReportPrinter printer;
   private ExpenseReport report;
   private ExpenseNamer namer = new ExpenseReportNamer();
 
@@ -31,17 +33,27 @@ public class ExpenseReporter {
   }
 
   private void printExpense(Expense expense) {
-    printer.print(String.format("%s\t%s\t$%.02f\n",
-      expense.isOverage() ? "X" : " ",
-      namer.getName(expense),
-      penniesToDollars(expense.getAmount())));
+    printer.print(format("%s\t%s\t$%.02f\n",
+                            overageMarkFor(expense),
+                            namer.nameFor(expense),
+                            penniesToDollars(expense.getAmount())));
+  }
+
+  private String overageMarkFor(Expense expense) {
+	return expense.isOverage() ? "X" : " ";
   }
 
   private void printTotals() {
-    printer.print(String.format("\nMeal expenses $%.02f",
-      penniesToDollars(report.getMealExpenses())));
-    printer.print(String.format("\nTotal $%.02f",
-      penniesToDollars(report.getTotal())));
+    printer.print(format("\nMeal expenses $%.02f", mealExpensesInDollars()));
+    printer.print(format("\nTotal $%.02f", totalInDollars()));
+  }
+
+  private double totalInDollars() {
+	return penniesToDollars(report.getTotal());
+  }
+
+  private double mealExpensesInDollars() {
+	return penniesToDollars(report.getMealExpenses());
   }
 
   private double penniesToDollars(int pennies) {
